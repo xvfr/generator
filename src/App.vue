@@ -190,7 +190,33 @@ export default {
 			let out = []
 
 			if ( vm.constructor.name ) {
-				out.push( `/rename &${ vm.constructor.name }Name` )
+
+				let rare = ''
+
+				switch ( vm.constructor.rare ) {
+					case 'Обычная':
+						rare = 'f'
+						break
+
+					case 'Необычная':
+						rare = 'a'
+						break
+
+					case 'Редкая':
+						rare = 'b'
+						break
+
+					case 'Эпическая':
+						rare = '5'
+						break
+
+					case 'Легендарная':
+						rare = '6'
+						break
+				}
+
+				out.push( `/rename &${rare}${ vm.constructor.name }` )
+
 			}
 
 			if ( vm.constructor.damage ) {
