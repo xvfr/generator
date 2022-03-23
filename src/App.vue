@@ -6,6 +6,13 @@
 
 	  <form class="constructor">
 
+		<label for="name">
+		  Имя
+		</label>
+		<input id="name" type="text" v-model="constructor.name" />
+
+		<br />
+
 		<label for="damage">
 		  Урон
 		</label>
@@ -122,23 +129,23 @@
 
 	  <div class="out-line">
 
-	  <div class="out-block">
-		<img src="https://img.icons8.com/material-outlined/24/000000/copy.png" class="copy"
-			 @click="copyToClipboard( output1 )" />
-		<pre class="output">{{ output1 }}</pre>
-	  </div>
+		<div class="out-block">
+		  <img src="https://img.icons8.com/material-outlined/24/000000/copy.png" class="copy"
+			   @click="copyToClipboard( output1 )" />
+		  <pre class="output">{{ output1 }}</pre>
+		</div>
 
-	  <div class="out-block">
-		<img src="https://img.icons8.com/material-outlined/24/000000/copy.png" class="copy"
-			 @click="copyToClipboard( output2 )" />
-		<pre class="output">{{ output2 }}</pre>
-	  </div>
+		<div class="out-block">
+		  <img src="https://img.icons8.com/material-outlined/24/000000/copy.png" class="copy"
+			   @click="copyToClipboard( output2 )" />
+		  <pre class="output">{{ output2 }}</pre>
+		</div>
 
-	  <div class="out-block">
-		<img src="https://img.icons8.com/material-outlined/24/000000/copy.png" class="copy"
-			 @click="copyToClipboard( output3 )" />
-		<pre class="output">{{ output3 }}</pre>
-	  </div>
+		<div class="out-block">
+		  <img src="https://img.icons8.com/material-outlined/24/000000/copy.png" class="copy"
+			   @click="copyToClipboard( output3 )" />
+		  <pre class="output">{{ output3 }}</pre>
+		</div>
 
 	  </div>
 
@@ -150,156 +157,162 @@
 <script>
 
 export default {
-    name: 'App',
+	name : 'App',
 
-    data: () => ({
+	data : () => ( {
 
-        constructor: {
-            damage: 0,
-            type: '',
-            speed: '',
+		constructor : {
+			name : '',
 
-            addDamage: 0,
-            addArmour: 0,
-            addHealth: 0,
-            critalDamage: 0,
-            critalChanse: 0,
-            evasion: 0,
-            description: '',
+			damage : 0,
+			type : '',
+			speed : '',
 
-            runes: '',
+			addDamage : 0,
+			addArmour : 0,
+			addHealth : 0,
+			critalDamage : 0,
+			critalChanse : 0,
+			evasion : 0,
+			description : '',
 
-            rare: '',
-        }
+			runes : '',
 
-    }),
+			rare : ''
+		}
 
-    computed: {
+	} ),
 
-        output1: (vm) => {
+	computed : {
 
-            let out = []
+		output1 : ( vm ) => {
 
-            if (vm.constructor.damage) {
-                out.push(`/lore add &7Урон: &6${vm.constructor.damage}`)
-                out.push(`/lemonitemedit:addattr attack_damage ${vm.constructor.damage}`)
-                out.push('/lore add &f')
-            }
+			let out = []
 
-            if (vm.constructor.type) {
-                out.push(`/lore add &7Тип: &8${vm.constructor.type}`)
-            }
+			if ( vm.constructor.name ) {
+				out.push( `/rename &${ vm.constructor.name }Name` )
+			}
 
-            if (vm.constructor.speed) {
-                out.push(`/lore add &7Скорость атаки: &8${vm.constructor.speed}`)
+			if ( vm.constructor.damage ) {
+				out.push( `/lore add &7Урон: &6${ vm.constructor.damage }` )
+				out.push( `/lemonitemedit:addattr attack_damage ${ vm.constructor.damage }` )
+				out.push( '/lore add &f' )
+			}
 
-                switch (vm.constructor.speed) {
-                    case 'Быстрая':
-                        out.push('/lemonitemedit:addattr attack_speed -1')
-                        break
+			if ( vm.constructor.type ) {
+				out.push( `/lore add &7Тип: &8${ vm.constructor.type }` )
+			}
 
-                    case 'Средняя':
-                        out.push('/lemonitemedit:addattr attack_speed -2')
-                        break
+			if ( vm.constructor.speed ) {
+				out.push( `/lore add &7Скорость атаки: &8${ vm.constructor.speed }` )
 
-                    case 'Медленная':
-                        out.push('/lemonitemedit:addattr attack_speed -3')
-                        break
-                }
+				switch ( vm.constructor.speed ) {
+					case 'Быстрая':
+						out.push( '/lemonitemedit:addattr attack_speed -1' )
+						break
 
-                out.push('/lore add &f')
-            }
+					case 'Средняя':
+						out.push( '/lemonitemedit:addattr attack_speed -2' )
+						break
 
-            if (vm.constructor.addDamage) {
-                out.push(`/lore add &c+${vm.constructor.addDamage} Урон`)
-            }
+					case 'Медленная':
+						out.push( '/lemonitemedit:addattr attack_speed -3' )
+						break
+				}
 
-            if (vm.constructor.addArmour) {
-                out.push(`/lore add &f+${vm.constructor.addArmour} Защита`)
-            }
+				out.push( '/lore add &f' )
+			}
 
-            return out.join(';\n')
-        },
+			if ( vm.constructor.addDamage ) {
+				out.push( `/lore add &c+${ vm.constructor.addDamage } Урон` )
+			}
 
-        output2: (vm) => {
+			if ( vm.constructor.addArmour ) {
+				out.push( `/lore add &f+${ vm.constructor.addArmour } Защита` )
+			}
 
-            let out = []
+			return out.join( ';\n' )
+		},
 
-            if (vm.constructor.addHealth) {
-                out.push(`/lore add &2+${vm.constructor.addHealth} Здоровье`)
-            }
+		output2 : ( vm ) => {
 
-            if (vm.constructor.critalDamage) {
-                out.push(`/lore add &4+${vm.constructor.critalDamage} Крит. Урон`)
-            }
+			let out = []
 
-            if (vm.constructor.critalChanse) {
-                out.push(`/lore add &6+${vm.constructor.critalChanse} Крит. Шанс`)
-            }
+			if ( vm.constructor.addHealth ) {
+				out.push( `/lore add &2+${ vm.constructor.addHealth } Здоровье` )
+			}
 
-            if (vm.constructor.evasion) {
-                out.push(`/lore add &9+${vm.constructor.evasion} Уклонение`)
-            }
+			if ( vm.constructor.critalDamage ) {
+				out.push( `/lore add &4+${ vm.constructor.critalDamage } Крит. Урон` )
+			}
 
-            if (vm.constructor.addDamage || vm.constructor.addArmour || vm.constructor.addHealth || vm.constructor.critalDamage || vm.constructor.critalChanse || vm.constructor.evasion)
-                out.push('/lore add &f')
+			if ( vm.constructor.critalChanse ) {
+				out.push( `/lore add &6+${ vm.constructor.critalChanse } Крит. Шанс` )
+			}
 
-            return out.join(';\n')
+			if ( vm.constructor.evasion ) {
+				out.push( `/lore add &9+${ vm.constructor.evasion } Уклонение` )
+			}
 
-        },
+			if ( vm.constructor.addDamage || vm.constructor.addArmour || vm.constructor.addHealth || vm.constructor.critalDamage || vm.constructor.critalChanse || vm.constructor.evasion )
+				out.push( '/lore add &f' )
 
-        output3: (vm) => {
+			return out.join( ';\n' )
 
-            let out = []
+		},
 
-            if (vm.constructor.description) {
-                out.push(`/lore add ${vm.constructor.description}`)
-                out.push('/lore add &f')
-            }
+		output3 : ( vm ) => {
 
-            if (vm.constructor.runes) {
-                for (let i = 0; i < vm.constructor.runes; i++) {
-                    out.push('/lar gems addslot')
-                }
-                out.push('/lore add &f')
-            }
+			let out = []
 
-            if (vm.constructor.rare) {
-                switch (vm.constructor.rare) {
-                    case 'Обычная':
-                        out.push('/lore add &fОбычный предмет')
-                        break
+			if ( vm.constructor.description ) {
+				out.push( `/lore add ${ vm.constructor.description }` )
+				out.push( '/lore add &f' )
+			}
 
-                    case 'Необычная':
-                        out.push('/lore add &aНеобычный предмет')
-                        break
+			if ( vm.constructor.runes ) {
+				for ( let i = 0; i < vm.constructor.runes; i++ ) {
+					out.push( '/lar gems addslot' )
+				}
+				out.push( '/lore add &f' )
+			}
 
-                    case 'Редкая':
-                        out.push('/lore add &bРедкий предмет')
-                        break
+			if ( vm.constructor.rare ) {
+				switch ( vm.constructor.rare ) {
+					case 'Обычная':
+						out.push( '/lore add &fОбычный предмет' )
+						break
 
-                    case 'Эпическая':
-                        out.push('/lore add &5Эпический предмет')
-                        break
+					case 'Необычная':
+						out.push( '/lore add &aНеобычный предмет' )
+						break
 
-                    case 'Легендарная':
-                        out.push('/lore add &6Легендарный предмет')
-                        break
-                }
-            }
+					case 'Редкая':
+						out.push( '/lore add &bРедкий предмет' )
+						break
 
-            out.push('/lemonitemedit:addflag hide_attributes')
+					case 'Эпическая':
+						out.push( '/lore add &5Эпический предмет' )
+						break
 
-			return out.join(';\n')
+					case 'Легендарная':
+						out.push( '/lore add &6Легендарный предмет' )
+						break
+				}
+			}
 
-        }
-    },
+			out.push( '/lemonitemedit:addflag hide_attributes' )
 
-    methods: {
-        copyToClipboard(text) {
-            navigator.clipboard.writeText(text)
-        }
-    }
+			return out.join( ';\n' )
+
+		}
+	},
+
+	methods : {
+		copyToClipboard ( text ) {
+			navigator.clipboard.writeText( text )
+		}
+	}
 
 }
 
@@ -308,71 +321,71 @@ export default {
 <style>
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 
-    min-height: 100vh;
+  min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .block {
-    padding: 10px;
-    background: #ecebe8;
-    border-radius: 7px;
-    border: 1px solid #ececae;
+  padding: 10px;
+  background: #ecebe8;
+  border-radius: 7px;
+  border: 1px solid #ececae;
 }
 
 .output {
-    max-height: 250px;
-    overflow-y: auto;
+  max-height: 250px;
+  overflow-y: auto;
 
-    text-align: left;
+  text-align: left;
 }
 
 .constructor {
-    padding: 10px;
+  padding: 10px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .out-line {
-	display: flex;
-	flex-direction: row;
-	align-content: space-around;
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
 }
 
 .out-line .out-block:not(:nth-last-child(1)) {
-	margin-right: 20px;
+  margin-right: 20px;
 }
 
 .out-block {
-    position: relative;
-    background: white;
+  position: relative;
+  background: white;
 
-	min-height: 35px;
+  min-height: 35px;
 
-	padding: 20px;
+  padding: 20px;
 }
 
 .copy {
-    position: absolute;
-    cursor: pointer;
-    right: 5px;
-    top: 5px;
-    width: 15px;
+  position: absolute;
+  cursor: pointer;
+  right: 5px;
+  top: 5px;
+  width: 15px;
 }
 
 </style>
