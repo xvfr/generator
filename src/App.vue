@@ -215,7 +215,7 @@ export default {
 						break
 				}
 
-				out.push( `/rename &${rare}${ vm.constructor.name }` )
+				out.push( `/rename &${ rare }${ vm.constructor.name }` )
 
 			}
 
@@ -292,8 +292,15 @@ export default {
 			let out = []
 
 			if ( vm.constructor.description ) {
-				out.push( `/lore add ${ vm.constructor.description }` )
+
+				const desc = vm.constructor.description.split( '\n' )
+
+				desc.forEach( d => {
+					out.push( `/lore add ${ d }` )
+				} )
+
 				out.push( '/lore add &f' )
+
 			}
 
 			if ( vm.constructor.runes ) {
